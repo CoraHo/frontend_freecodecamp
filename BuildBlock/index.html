@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+        <style>
+            #counter {
+                margin: 10% 40%;
+                border: solid;
+                border-width: 5px;
+                padding: 5px;
+            }
+        </style>
+
+        <script>
+            let breakDefault =5;
+            let sessionDefault = 25;
+            let min = 25;
+            let second = 0;
+            let isOn = false;
+            let intervalId = undefined;
+
+            // $(document).ready(function() {
+            //     $("#start_stop").on("click", function() {
+            //         $("#break-decrement").prop('disabled', !isOn);
+            //         $("#break-increment").prop('disabled', !isOn);
+            //         $("#session-decrement").prop('disabled', !isOn);
+            //         $("#session-decrement").prop('disabled', !isOn);
+            //     })
+            // })
+
+            function reset() {
+                clearInterval(intervalId);
+                breakDefault =5;
+                sessionDefault = 25;
+                min = sessionDefault;
+                second = 0;
+                isOn = false;
+                $("#break-length").text(5)
+                $("#session-length").text(25)
+                $("#time-left").text(`${min}:00`)
+            }
+
+            function deBreak() {
+                breakDefault -= 1;
+                if (breakDefault <= 0) {
+                    breakDefault = 1;
+                }
+                $("#break-length").text(breakDefault)
+            }
+            
+            function inBreak() {
+                breakDefault += 1;
+                if (breakDefault > 60) {
+                    breakDefault = 60;
+                }
+                $("#break-length").text(breakDefault)
+            }
+
+            function deSession() {
+                sessionDefault -= 1;
+                if (sessionDefault <= 0) {
+                    sessionDefault = 1;
+                }
+                min = sessionDefault;
+                $("#session-length").text(sessionDefault);
+                $("#time-left").text(`${min}:00`);
+            }
+
+            function inSession() {
+                sessionDefault += 1;
+                if (sessionDefault > 60) {
+                    sessionDefault = 60;
+                }
+                min = sessionDefault;
+                $("#session-length").text(sessionDefault);
+                $("#time-left").text(`${min}:00`);
+            }
+
+            function startOrPause() {
+                if (isOn && intervalId) {
+                    clearInterval(intervalId);
+                    $("#break-decrement").prop('disabled', false);
+                    $("#break-increment").prop('disabled', false);
+                    $("#session-decrement").prop('disabled', false);
+                    $("#session-increment").prop('disabled', false);
+                    isOn = false;
+                }else {
+                    intervalId = setInterval(function() {
+                        second -= 1;
+                        if (second < 0) {
+                            min -= 1;
+                            second = 59
+                        }
+                        if (min < 0) {
+                            reset();
+                            document.getElementById('beep').play();
+                        }else {
+                            if (second > 0) {
+                                $("#time-left").text(`${min}:${second}`);
+                            }else if (second == 0) {
+                                $("#time-left").text(`${min}:00`);
+                            }
+                        }
+                        
+                    }, 1000);
+                    $("#break-decrement").prop('disabled', true);
+                    $("#break-increment").prop('disabled', true);
+                    $("#session-decrement").prop('disabled', true);
+                    $("#session-increment").prop('disabled', true);
+                    isOn = true;
+                }
+            }
+
+        </script>
+    </head>
+
+    <body>
+        <div id="counter">
+            <div id="break-label">
+            Break Length
+            </div>
+            <button id="break-decrement" onclick="deBreak()">Decrease Break</button>
+            <div id="break-length">5</div>
+            <button id="break-increment" onclick="inBreak()">Increase Break</button>
+
+            <div id="session-label">
+                Session Length
+            </div>
+            <button id="session-decrement" onclick="deSession()">Decrease Session</button>
+            <div id="session-length">25</div>
+            <button id="session-increment" onclick="inSession()">Increase Session</button>
+
+
+            <div id="timer-label">Session</div>
+            <div id="time-left">25:00</div>
+            <button id="start_stop" onclick="startOrPause()">Start/stop</button>
+            <button id="reset" onclick="reset()">reset</button>
+
+            <audio id="beep" preload="auto" src="./beep-01a.mp3"></audio>
+        </div>
+    </body>
+</html>

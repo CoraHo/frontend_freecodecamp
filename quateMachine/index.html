@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <style>
+            #body {
+                background-color: blue;
+                display: flex;
+                justify-content: center;
+            }
+            #quote-box {
+                margin-top: 15%;
+                width: 500px;
+                height: 300px;
+                background-color: white;
+                display: block;
+            }
+            #text {
+                height: 60%;
+                font-size: 20px;
+                margin: 20px;
+                text-align: left;
+            }
+            #author {
+                height: 20%;
+                margin-left: 70%;
+                margin-right: 20px;
+            }
+            #actions {
+                position: absolute;
+                display: flex;
+                width: 500px;
+            }
+            #new-quote, #tweet-quote {
+                text-align: center;
+                width: 50%;
+                font-size: 18px;
+            }
+        </style>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+        <script>
+            const colors = ["#FF5733", "#33FF57", "#5733FF", "#F2C511", "#11F2C5", "#C511F2", "#F2117D", "#42F211", "#11B6F2", "#F25F11"]
+            // let button = document.getElementById("new-quote");
+            $(document).ready(function() {
+                $('#new-quote').click(function() {
+                    $.ajax("https://api.api-ninjas.com/v1/quotes", {
+                        method: "GET",
+                        headers: {"X-Api-Key": "C/xadcWCzuAXGP4GgicyLg==88GjXYdDnLmD0q9a"},
+                        contentType: 'application/JSON',
+                        success: function(result) {
+                            const newQ = result[0].quote;
+                            const newA = result[0].author;
+                            $("#text").text(newQ);
+                            $("#author").text(newA)
+                            const nextColor = Math.floor(Math.random() * 10);
+                            $("#body").css("backgroundColor", colors[nextColor]);
+                        },
+                        error: function(jqXHR) {
+
+                        }
+                    })
+                })
+            })
+        </script>
+    </head>
+
+    <body id="body">
+        <div id="quote-box">
+            <div id="text">
+                Before the boat docked, however, he confessed because he was contemplating running for president, 
+                he couldn't separate from his wife. I believed him when he told me he faced a difficult choice 
+                between pursuing personal happiness and his political destiny.
+            </div>
+            <div id="author">
+                --Donna Rice
+            </div>
+            <div id="actions">
+                <button id="tweet-quote" onClick="window.open('https://twitter.com/intent/tweet');">Tweet It</button>
+                <button id="new-quote">New Quote</button>
+            </div>
+        </div>
+    </body>
+
+    
+</html>

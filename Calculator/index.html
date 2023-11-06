@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+        <style>
+            .calculator {
+                margin: 10% 30%;
+                border: solid;
+                border-width: 5px;
+                border-color: darkblue;
+                width: 300px;
+            }
+            #equals {
+                width: 72.5px;
+                height: 52px;
+            }
+            #display {
+                width: 100%;
+                height: 30px;
+                text-align: right;
+            }
+        </style>
+
+        <script>
+            let firstNum = 0;
+            let operation = "";
+            let secondNum = 0;
+            let displayStr = "0";
+            let currentNum = "0"
+            let firstOp = false;
+            $(document).ready(function() {
+                $("#clear").on("click", function() {
+                    firstNum = 0;
+                    secondNum = 0;
+                    firstOp = false;
+                    operation = "";
+                    currentNum = "0";
+                    displayStr = "0";
+                    $("#display").text(displayStr)
+                })
+            })
+
+            function appendNum(num) {
+                if (displayStr === "0" && num === "0") return;
+                if (displayStr.includes(".") && num === ".") return;
+                if (displayStr === "0" && num !== ".") {
+                    displayStr = "";
+                }
+                displayStr += num;
+                $("#display").text(displayStr)
+
+                if (currentNum == "0" && num != ".") {
+                    currentNum = "0";
+                }
+                currentNum += num;
+            }
+        
+            function appendOp(op) {
+                if (operation === "") {
+                    firstNum = parseFloat(currentNum)
+                    operation = op.trim();
+                    // console.log(firstNum, secondNum, operation, currentNum, displayStr)
+                    currentNum = "0";
+                }else if (operation === "=") {
+                    operation = op.trim();
+                }else {
+                    secondNum = parseFloat(currentNum)
+                    let result;
+                    if (operation === "/"){
+                        result = firstNum / secondNum;
+                    }else if (operation === "x") {
+                        result = firstNum * secondNum;
+                    }else if (operation === "-") {
+                        result = firstNum - secondNum;
+                    }else if (operation === "+") {
+                        result = firstNum + secondNum;
+                    }
+                    firstNum = result;
+                    displayStr = result.toString();
+                    // console.log(firstNum, secondNum, operation, currentNum, displayStr)
+                    currentNum = "0"
+                    operation = op.trim();
+                }
+                displayStr += op;
+                $("#display").text(displayStr)
+            }
+
+            function getResult() {
+                secondNum = parseFloat(currentNum)
+                let result;
+                if (operation === "/"){
+                    result = firstNum / secondNum;
+                }else if (operation === "x") {
+                    result = firstNum * secondNum;
+                }else if (operation === "-") {
+                    result = firstNum - secondNum;
+                }else if (operation === "+") {
+                    result = firstNum + secondNum;
+                }
+                firstNum = result;
+                displayStr = result.toString();
+                currentNum = "0";
+                operation = "=";
+                $("#display").text(displayStr)
+            }
+        </script>
+    </head>
+
+    <body>
+        <div class="calculator container">
+
+            <div  id="display">
+                0
+            </div>
+
+            <div class="row">
+                <button id="clear" class="col-sm-6">AC</button>
+                <button id="divide" class="col-sm-3" onclick="appendOp('/')"> / </button>
+                <button id="multiply" class=" col-sm-3" onclick="appendOp('x')"> x </button>
+            </div>
+
+            <div class="row ">
+                <button id="one" class="col-sm-3" onclick="appendNum('1')" >1</button>
+                <button id="two" class="col-sm-3" onclick="appendNum('2')">2</button>
+                <button id="three" class="col-sm-3" onclick="appendNum('3')">3</button>
+                <button id="subtract" class="col-sm-3" onclick="appendOp('-')"> - </button>
+            </div>
+
+            <div class="row">
+                <button id="four" class="col-sm-3" onclick="appendNum('4')">4</button>
+                <button id="five" class="col-sm-3" onclick="appendNum('5')">5</button>
+                <button id="six" class="col-sm-3" onclick="appendNum('6')">6</button>
+                <button id="add" class="col-sm-3" onclick="appendOp('+')"> + </button>
+            </div>
+            
+            <div class="row">
+                <div class="col-sm-9">
+                    <div class="row">
+                        <button id="seven" class="col-sm-4 box" onclick="appendNum('7')">7</button>
+                        <button id="eight" class="col-sm-4 box" onclick="appendNum('8')">8</button>
+                        <button id="nine" class="col-sm-4 box" onclick="appendNum('9')">9</button>
+                    </div>
+
+                    <div class="row">
+                        <button id="zero" class="col-sm-8" onclick="appendNum('0')">0</button>
+                        <button id="decimal" class="col-sm-4" onclick="appendNum('.')">.</button>
+                        
+                    </div>
+                </div>
+                <button id="equals" onclick="getResult()"> = </button>
+            </div>
+
+            
+
+            
+        </div>
+    </body>
+</html>

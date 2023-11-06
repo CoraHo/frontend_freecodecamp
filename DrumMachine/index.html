@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+        <style>
+            #drum-machine {
+                display: flex;
+                margin-top: 200px;
+                justify-content: center;
+            }
+            #keys {
+                display: flex;
+                flex-direction: column;
+                width: 300px;
+            }
+            .three-btn {
+                display: flex;
+                /* flex-direction: column; */
+
+            }
+            .drum-pad {
+                width: 100px;
+                height: 50px;
+            }
+            #display {
+                height: 50px;
+                width: 100px;
+                border: solid;
+                border-color: blueviolet;
+            }
+            
+        </style>
+        <script>
+            $(document).ready(function () {
+                $("#q").on("click", function() {
+                    $("#display").text("Heater-1")
+                })
+                $("#w").on("click", function() {
+                    $("#display").text("Heater-2")
+                })
+                $("#e").on("click", function() {
+                    $("#display").text("Heater-3")
+                })
+                $("#a").on("click", function() {
+                    $("#display").text("Heater-4")
+                })
+                $("#s").on("click", function() {
+                    $("#display").text("Heater-6")
+                })
+                $("#d").on("click", function() {
+                    $("#display").text("Dsc_Oh")
+                })
+                $("#z").on("click", function() {
+                    $("#display").text("Kick_n_Hat")
+                })
+                $("#x").on("click", function() {
+                    $("#display").text("RP4_KICK_1")
+                })
+                $("#c").on("click", function() {
+                    $("#display").text("Cev_H2")
+                })
+
+            })
+        </script>
+    </head>
+
+    <body>
+        <div id="drum-machine">
+            <div id="keys">
+                <div class="three-btn">
+                    
+                    <button class="drum-pad" id="q" onclick="document.getElementById('sound-q').play();">
+                        <audio id="sound-q" preload="auto" src="https://s3.amazonaws.com/freecodecamp/drums/Heater-1.mp3"></audio>
+                        Q</button>
+
+                    
+                    <button class="drum-pad" id="w" onclick="document.getElementById('sound-w').play();">
+                        <audio id="sound-w" preload="auto" src="https://s3.amazonaws.com/freecodecamp/drums/Heater-2.mp3"></audio>
+                        W</button>
+
+                    
+                    <button class="drum-pad" id="e" onclick="document.getElementById('sound-e').play();">
+                        <audio id="sound-e" preload="auto" src="https://s3.amazonaws.com/freecodecamp/drums/Heater-3.mp3"></audio>
+                        E</button>
+                </div>
+                
+    
+                <div class="three-btn">
+                    
+                    <button class="drum-pad" id="a" onclick="document.getElementById('sound-a').play();">
+                        <audio id="sound-a" preload="auto" src="https://s3.amazonaws.com/freecodecamp/drums/Heater-4_1.mp3"></audio>
+                        A</button>
+
+                    
+                    <button class="drum-pad" id="s" onclick="document.getElementById('sound-s').play();">
+                        <audio id="sound-s" preload="auto" src="https://s3.amazonaws.com/freecodecamp/drums/Heater-6.mp3"></audio>
+                        S</button>
+
+                    <audio id="sound-d" preload="auto" src="https://s3.amazonaws.com/freecodecamp/drums/Dsc_Oh.mp3"></audio>
+                    <button class="drum-pad" id="d" onclick="document.getElementById('sound-d').play();">
+                        <audio id="sound-d" preload="auto" src="https://s3.amazonaws.com/freecodecamp/drums/Dsc_Oh.mp3"></audio>
+                        D</button>
+                </div>
+                
+    
+                <div class="three-btn">
+                    
+                    <button class="drum-pad" id="z" onclick="document.getElementById('sound-z').play();">
+                        <audio id="sound-z" preload="auto" src="https://s3.amazonaws.com/freecodecamp/drums/Kick_n_Hat.mp3"></audio>
+                        Z</button>
+
+                    
+                    <button class="drum-pad" id="x" onclick="document.getElementById('sound-x').play();">
+                        <audio id="sound-x" preload="auto" src="https://s3.amazonaws.com/freecodecamp/drums/RP4_KICK_1.mp3"></audio>
+                        X</button>
+
+                    
+                    <button class="drum-pad" id="c" onclick="document.getElementById('sound-c').play();">
+                        <audio id="sound-c" preload="auto" src="https://s3.amazonaws.com/freecodecamp/drums/Cev_H2.mp3"></audio>
+                        C</button>
+                </div>
+            </div>
+            
+            <div id="display">
+
+            </div>
+        </div>
+    </body>
+</html>

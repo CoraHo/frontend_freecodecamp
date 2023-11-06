@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <style>
+            #body {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                background-color: #F0E68C;
+            }
+            .editor-container {
+                margin: 10px 0;
+                display: flex;
+                flex-direction: column;
+                width: 500px;
+                border: solid;
+                background-color: #FEBE10;
+            }
+            .preview-container {
+                margin: 10px 0;
+                display: flex;
+                flex-direction: column;
+                width: 800px;
+                border: solid;
+                background-color: #FEBE10;
+            }
+            #editor {
+                height: 300px;
+            }
+            #preview {
+                height: 100px;
+                background-color: white;
+                border: solid;
+            }
+        </style>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+        <script>
+            $(document).ready(function() {
+                $("#editor").on("input", function() {
+                    const inputs = $("#editor").val();
+                    $("#preview").text(inputs);
+                })
+            })
+        </script>
+    </head>
+
+    <body id="body">
+        <div class="editor-container">
+            <div id="editor-label">Editor</div>
+            <textarea id="editor">
+            </textarea>
+        </div>
+        
+        <div class="preview-container">
+            <div id="preview-label">Preview</div>
+            <div id="preview">
+
+            </div>
+        </div>
+        
+    </body>
+</html>
